@@ -22,6 +22,7 @@ public class StartPage extends BasePage{
     @FindBy(xpath = "//ul[@class='lg-menu__list']")
     WebElement menuBox;
 
+    @Test
     @Step
     @When("пользователь наводит курсор на элемент Ипотека верхнего меню")
     public void hoverOnElement(String menuItem) {
