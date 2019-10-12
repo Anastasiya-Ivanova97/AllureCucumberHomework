@@ -94,7 +94,7 @@ public class HomeCreditPage extends BasePage{
         wait.until(isResultChanged);
     }
     @Step
-    @Then("Тогда пользователь проверяет сумму кредита, ежемесячный платеж, необходимый доход, процентную ставку")
+    @Then("Тогда пользователь проверяет 2122000, 18937, 31561, 11")
     public void checkValues(Integer sum, Integer mp, Integer income, Double percent) {
         Assert.assertEquals(sum,toNumber(amountOfCredit.getText()));
         Assert.assertEquals(mp,toNumber(monthlyPayment.getText()));
