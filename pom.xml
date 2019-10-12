@@ -44,11 +44,6 @@
             <artifactId>allure-cucumber3-jvm</artifactId>
             <version>${allure.version}</version>
         </dependency>
-        <dependency>
-            <groupId>org.eclipse.jetty</groupId>
-            <artifactId>jetty-webapp</artifactId>
-            <version>9.4.21.v20190926</version>
-        </dependency>
     </dependencies>
 
     <build>
@@ -58,26 +53,23 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>2.19.1</version>
                 <configuration>
-                    <argLine>
-                        -javaagent:${settings.localRepository}\org\aspectj\aspectjweaver\${aspectj.version}\aspectjweaver-${aspectj.version}.jar
-                    </argLine>
+                    <testFailureIgnore>false</testFailureIgnore>
+                    <argLine>-javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar"</argLine>
                     <properties>
                         <property>
                             <name>listener</name>
-                            <value>ru.yandex.qatools.allure.AllureRunListener</value>
+                            <value>io.qameta.allure.cucumber3jvm.AllureCucumber3Jvm</value>
                         </property>
                     </properties>
+                    <systemProperties>
+                            <property>
+                                <name>allure.results.directory</name>
+                                <value>${project.build.directory}/allure-results/</value>
+                            </property>
+                    </systemProperties>
                     <includes>
                         <include>**/CucumberRunner.java</include>
                     </includes>
-                    <testFailureIgnore>false</testFailureIgnore>
-                    <systemProperties>
-                        <property>
-                            <name>allure.results.directory</name>
-                            <value>${project.build.directory}/allure-results</value>
-                        </property>
-
-                    </systemProperties>
                 </configuration>
                 <dependencies>
                     <dependency>
@@ -91,9 +83,6 @@
                 <groupId>io.qameta.allure</groupId>
                 <artifactId>allure-maven</artifactId>
                 <version>${allure-maven-plugin.version}</version>
-                <configuration>
-                    <resultsDirectory>${project.build.directory}\allure-results</resultsDirectory>
-                </configuration>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -103,8 +92,23 @@
                     <target>${compiler.version}</target>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>org.mortbay.jetty</groupId>
+                <artifactId>jetty</artifactId>
+                <version>6.1.5</version>
+                <configuration>
+                    <webAppSourceDirectory>${project.build.directory}/site/allure-maven-plugin</webAppSourceDirectory>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
-
-
+    <reporting>
+        <excludeDefaults>true</excludeDefaults>
+        <plugins>
+            <plugin>
+                <groupId>io.qameta.allure</groupId>
+                <artifactId>allure-maven</artifactId>
+            </plugin>
+        </plugins>
+    </reporting>
 </project>
