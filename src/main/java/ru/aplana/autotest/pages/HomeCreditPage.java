@@ -43,35 +43,39 @@ public class HomeCreditPage extends BasePage {
     @FindBy(xpath = "//div[@class='dcCalc_calcResult_layout']/descendant::span[@data-test-id='rate']")
     WebElement rate;
 
-    @FindBy(id = "estateCost")
+    @FindBy(xpath = "//input[@id='estateCost']")
     WebElement inputCost;
 
-    @FindBy(id = "initialFee")
+    @FindBy(xpath = "//input[@id='initialFee']")
     WebElement inputFee;
 
-    @FindBy(id = "creditTerm")
+    @FindBy(xpath = "//input[@id='creditTerm']")
     WebElement creditTerm;
 
     @FindBy(css = ".dcCalc_switch:nth-child(1) > .dcCalc_switch__icon-on")
     WebElement yesCard;
 
+    @FindBy(xpath = "//div[text()='Молодая семья']/parent::div/descendant::span[@class='dcCalc_switch__control']")
+    WebElement youngFamily;
 
     @Step("Пользователь заполняет поле стоимость недвижимости")
     @When("Пользователь заполняет поле стоимость недвижимости")
     public void sendInputCost()  {
         driver.switchTo().frame(0);
         JavascriptExecutor js = (JavascriptExecutor) driver;
-        js.executeScript("window.scrollTo(0,900)");
-        inputCost.click();
+        js.executeScript("window.scrollTo(0,1200)");
+        js.executeScript("arguments[0].click();", inputCost);
         inputCost.clear();
         inputCost.sendKeys("5180000");
-        driver.switchTo().defaultContent();
+//        js.executeScript("arguments[0].value = '\" + 5180000+ \"'\", inputcost");
+
     }
     @And("пользователь вводит сумму первоначального взноса")
     @Step("пользователь вводит сумму первоначального взноса")
     public void sendInputFee() {
-        driver.switchTo().frame(0);
-        inputFee.click();
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("arguments[0].click();", inputFee);
+       // inputFee.click();
         inputFee.clear();
         inputFee.sendKeys("3058000");
         driver.switchTo().defaultContent();}
@@ -79,7 +83,8 @@ public class HomeCreditPage extends BasePage {
     @And("пользователь заполняет поле срок кредита")
     public void sendCreditTerm() {
         driver.switchTo().frame(0);
-        creditTerm.click();
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("arguments[0].click();",creditTerm);
         creditTerm.clear();
         creditTerm.sendKeys("30");
         driver.switchTo().defaultContent();}
@@ -88,7 +93,16 @@ public class HomeCreditPage extends BasePage {
     @And("пользователь снимает галочку есть зарплатная карта сбербанка")
     public void fieldClick() {
         driver.switchTo().frame(0);
-        yesCard.click();
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("arguments[0].click();",yesCard);
+        driver.switchTo().defaultContent();
+    }
+    @Step("пользователь ставит галочку Молодая семья")
+    @And("пользователь ставит галочку Молодая семья")
+    public void YoungFamilyClick() {
+        driver.switchTo().frame(0);
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("arguments[0].click();",youngFamily);
         driver.switchTo().defaultContent();
     }
 
@@ -114,7 +128,7 @@ public class HomeCreditPage extends BasePage {
     @Then("пользователь ждет изменения суммы ежемесячного платежа")
     public void waitForChangedPResult() {
         driver.switchTo().frame(0);
-        element = resultBox.findElement(By.xpath("//span[@data-test-id='monthlyPayment']"));
+        element = driver.findElement(By.xpath("//span[@data-test-id='monthlyPayment']"));
         Function<? super WebDriver, Object> isResultChanged = new ExpectedCondition<Object>() {
             @Override
             public Boolean apply(WebDriver webDriver) {
