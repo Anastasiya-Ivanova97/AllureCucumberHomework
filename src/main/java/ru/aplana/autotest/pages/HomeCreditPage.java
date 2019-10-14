@@ -57,18 +57,17 @@ public class HomeCreditPage extends BasePage {
 
 
     @Step("Пользователь заполняет поле стоимость недвижимости")
-    @When("^Пользователь заполняет поле стоимость недвижимости")
+    @When("Пользователь заполняет поле стоимость недвижимости")
     public void sendInputCost()  {
         driver.switchTo().frame(0);
         JavascriptExecutor js = (JavascriptExecutor) driver;
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"domclickEnv\"]")));
         js.executeScript("window.scrollTo(0,900)");
         inputCost.click();
         inputCost.clear();
         inputCost.sendKeys("5180000");
         driver.switchTo().defaultContent();
     }
-    @And("^пользователь вводит сумму первоначального взноса")
+    @And("пользователь вводит сумму первоначального взноса")
     @Step("пользователь вводит сумму первоначального взноса")
     public void sendInputFee() {
         driver.switchTo().frame(0);
@@ -77,7 +76,7 @@ public class HomeCreditPage extends BasePage {
         inputFee.sendKeys("3058000");
         driver.switchTo().defaultContent();}
     @Step("пользователь заполняет поле срок кредита")
-    @And("^пользователь заполняет поле срок кредита")
+    @And("пользователь заполняет поле срок кредита")
     public void sendCreditTerm() {
         driver.switchTo().frame(0);
         creditTerm.click();
@@ -86,7 +85,7 @@ public class HomeCreditPage extends BasePage {
         driver.switchTo().defaultContent();}
 
     @Step("пользователь снимает галочку есть зарплатная карта сбербанка")
-    @And("^пользователь снимает галочку есть зарплатная карта сбербанка")
+    @And("пользователь снимает галочку есть зарплатная карта сбербанка")
     public void fieldClick() {
         driver.switchTo().frame(0);
         yesCard.click();
@@ -112,7 +111,7 @@ public class HomeCreditPage extends BasePage {
     } */
 
     @Step("пользователь ждет изменения суммы ежемесячного платежа")
-    @Then("^пользователь ждет изменения суммы ежемесячного платежа")
+    @Then("пользователь ждет изменения суммы ежемесячного платежа")
     public void waitForChangedPResult() {
         driver.switchTo().frame(0);
         element = resultBox.findElement(By.xpath("//span[@data-test-id='monthlyPayment']"));
@@ -125,14 +124,14 @@ public class HomeCreditPage extends BasePage {
         wait.until(isResultChanged);
         driver.switchTo().defaultContent();
     }
-    @And("^Пользователь проверяет сумму кредита Integer \"(.*)\"")
+    @And("Пользователь проверяет сумму кредита Integer \"(.*)\"")
     @Step("Пользователь проверяет сумму кредита {sum}")
     public void checkAmount(Integer sum) {
         driver.switchTo().frame(0);
         Assert.assertEquals(sum,toNumber(amountOfCredit.getText()));
         driver.switchTo().defaultContent();
     }
-    @And("^Пользователь проверяет ежемесячный платеж Integer \"(.*)\"")
+    @And("Пользователь проверяет ежемесячный платеж Integer \"(.*)\"")
     @Step("Пользователь проверяет ежемесячный платеж {mp}")
     @Attachment(type = "image/png", value = "Screenshot")
     public void checkMPayment(Integer mp) {
@@ -140,14 +139,14 @@ public class HomeCreditPage extends BasePage {
         Assert.assertEquals(mp,toNumber(monthlyPayment.getText()));
         driver.switchTo().defaultContent();
     }
-    @And("^Пользователь проверяет необходимый доход Integer \"(.*)\"")
+    @And("Пользователь проверяет необходимый доход Integer \"(.*)\"")
     @Step("Пользователь проверяет необходимый доход {income}")
     public void checkIncome(Integer income) {
         driver.switchTo().frame(0);
         Assert.assertEquals(income,toNumber(requiredIncome.getText()));
         driver.switchTo().defaultContent();
     }
-    @And("^Пользователь проверяет процент Double \"(.*)\"")
+    @And("Пользователь проверяет процент Double \"(.*)\"")
     @Step("Пользователь проверяет процент {percent}")
     public void checkPercent(Double percent) {
         driver.switchTo().frame(0);
