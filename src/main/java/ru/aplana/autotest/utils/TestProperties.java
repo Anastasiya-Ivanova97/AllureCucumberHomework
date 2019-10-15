@@ -12,7 +12,7 @@ public class TestProperties {
 
     private TestProperties(){
         try {
-            properties.load(new FileInputStream(new File("C:\\Users\\ASUS\\SberCreditTest\\src\\main\\resources\\test.properties")));
+            properties.load(new FileInputStream(new File("test.properties")));
         } catch (IOException e) {
             e.printStackTrace();
         }
