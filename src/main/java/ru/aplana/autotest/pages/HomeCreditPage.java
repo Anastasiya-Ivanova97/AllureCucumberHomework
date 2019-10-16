@@ -61,7 +61,8 @@ public class HomeCreditPage extends BasePage {
     @Step("Пользователь заполняет поле стоимость недвижимости")
     @When("Пользователь заполняет поле стоимость недвижимости")
     public void sendInputCost()  {
-        driver.switchTo().frame(0);
+        wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(0));
+       // driver.switchTo().frame(0);
         JavascriptExecutor js = (JavascriptExecutor) driver;
         js.executeScript("window.scrollTo(0,1200)");
         js.executeScript("arguments[0].click();", inputCost);
@@ -70,38 +71,41 @@ public class HomeCreditPage extends BasePage {
 //        js.executeScript("arguments[0].value = '\" + 5180000+ \"'\", inputcost");
 
     }
-    @And("пользователь вводит сумму первоначального взноса")
-    @Step("пользователь вводит сумму первоначального взноса")
+    @And("Пользователь вводит сумму первоначального взноса")
+    @Step("Пользователь вводит сумму первоначального взноса")
     public void sendInputFee() {
+//        wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(0));
         JavascriptExecutor js = (JavascriptExecutor) driver;
         js.executeScript("arguments[0].click();", inputFee);
        // inputFee.click();
         inputFee.clear();
         inputFee.sendKeys("3058000");
         driver.switchTo().defaultContent();}
-    @Step("пользователь заполняет поле срок кредита")
-    @And("пользователь заполняет поле срок кредита")
+    @Step("Пользователь заполняет поле срок кредита")
+    @And("Пользователь заполняет поле срок кредита")
     public void sendCreditTerm() {
-        driver.switchTo().frame(0);
+        wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(0));
         JavascriptExecutor js = (JavascriptExecutor) driver;
         js.executeScript("arguments[0].click();",creditTerm);
         creditTerm.clear();
         creditTerm.sendKeys("30");
         driver.switchTo().defaultContent();}
 
-    @Step("пользователь снимает галочку есть зарплатная карта сбербанка")
-    @And("пользователь снимает галочку есть зарплатная карта сбербанка")
+    @Step("Пользователь снимает галочку есть зарплатная карта сбербанка")
+    @And("Пользователь снимает галочку есть зарплатная карта сбербанка")
     public void fieldClick() {
         driver.switchTo().frame(0);
         JavascriptExecutor js = (JavascriptExecutor) driver;
         js.executeScript("arguments[0].click();",yesCard);
         driver.switchTo().defaultContent();
     }
-    @Step("пользователь ставит галочку Молодая семья")
-    @And("пользователь ставит галочку Молодая семья")
+    @Step("Пользователь ставит галочку Молодая семья")
+    @And("Пользователь ставит галочку Молодая семья")
     public void YoungFamilyClick() {
-        driver.switchTo().frame(0);
+        wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(0));
+//        driver.switchTo().frame(0);
         JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("window.scrollTo(0,1200)");
         js.executeScript("arguments[0].click();",youngFamily);
         driver.switchTo().defaultContent();
     }
@@ -124,10 +128,10 @@ public class HomeCreditPage extends BasePage {
         waitForChangedPResult();
     } */
 
-    @Step("пользователь ждет изменения суммы ежемесячного платежа")
-    @Then("пользователь ждет изменения суммы ежемесячного платежа")
+    @Step("Пользователь ждет изменения суммы ежемесячного платежа")
+    @Then("Пользователь ждет изменения суммы ежемесячного платежа")
     public void waitForChangedPResult() {
-        driver.switchTo().frame(0);
+        wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(0));
         element = driver.findElement(By.xpath("//span[@data-test-id='monthlyPayment']"));
         Function<? super WebDriver, Object> isResultChanged = new ExpectedCondition<Object>() {
             @Override
@@ -141,7 +145,7 @@ public class HomeCreditPage extends BasePage {
     @And("Пользователь проверяет сумму кредита Integer \"(.*)\"")
     @Step("Пользователь проверяет сумму кредита {sum}")
     public void checkAmount(Integer sum) {
-        driver.switchTo().frame(0);
+        wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(0));
         Assert.assertEquals(sum,toNumber(amountOfCredit.getText()));
         driver.switchTo().defaultContent();
     }
@@ -149,21 +153,21 @@ public class HomeCreditPage extends BasePage {
     @Step("Пользователь проверяет ежемесячный платеж {mp}")
     @Attachment(type = "image/png", value = "Screenshot")
     public void checkMPayment(Integer mp) {
-        driver.switchTo().frame(0);
+        wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(0));
         Assert.assertEquals(mp,toNumber(monthlyPayment.getText()));
         driver.switchTo().defaultContent();
     }
     @And("Пользователь проверяет необходимый доход Integer \"(.*)\"")
     @Step("Пользователь проверяет необходимый доход {income}")
     public void checkIncome(Integer income) {
-        driver.switchTo().frame(0);
+        wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(0));
         Assert.assertEquals(income,toNumber(requiredIncome.getText()));
         driver.switchTo().defaultContent();
     }
     @And("Пользователь проверяет процент Double \"(.*)\"")
     @Step("Пользователь проверяет процент {percent}")
     public void checkPercent(Double percent) {
-        driver.switchTo().frame(0);
+        wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(0));
         Assert.assertEquals(percent,toNumber(rate.getText()));
         driver.switchTo().defaultContent();
     }
